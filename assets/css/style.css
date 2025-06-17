@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Parkinsans:wght@300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+:root {
+    /* color palette */
+    --biru-langit: #D4EBF8;
+    --biru-dongker-muda: #1F509A;
+    --biru-dongker-tua: #0A3981;
+    --orange: #E38E49;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    /* background: var(--biru-langit); */
+    font-family: "Parkinsans", sans-serif !important;
+    padding-top: 130px;
+    background-color: #EAEFEF !important;
+}
+
+/* login */
+.login-card {
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    width: 50%;
+    padding: 30px 30px;
+    border-radius: 10px;
+    margin: auto;
+}
+
+.login-img {
+    display: flex;
+    align-items: center;
+}
+
+.login-button {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.button-submit {
+    width: 45%;
+    background-color: var(--orange) !important;
+}
+
+.button-submit:hover {
+    background-color: #dd6e13 !important;
+}
+
+/* navbar */
+.box {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    width: 100%;
+    top: 20px;
+    z-index: 1000;
+}
+
+.navbar {
+    border-radius: 50px;
+    width: 85%;
+    /* height: 60px; */
+    background-color: rgba(255, 255, 255, 0.9);
+    font-family: "Nunito", sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.navbar .navbar-brand {
+    color: var(--biru-dongker-tua);
+}
+
+/* home */
+.brand .image{
+    display: flex;
+    justify-content: center;
+    /* animation: move 2s ease-in-out infinite; */
+}
+
+.carousel-inner {
+    border-radius: 30px;
+}
+
+/* .about {
+    padding-top: 120px;
+    padding-bottom: 120px;
+    backdrop-filter: blur(10px);
+} */
+
+/* service */
+.equal-height {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.equal-height > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.card {
+    background-color: rgba(240, 240, 240, 0.7) !important;
+    height: 80%;
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.orange{
+    background-color: var(--orange) !important;
+}
+
+.orange:hover {
+    background-color: #d26c18 !important;
+}
+
+.fit-image {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: contain;
+}
+
+/* form order */
+.form-order {
+    width: 75%;
+    margin: auto;
+    padding: 30px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+/* detail order */
+.detail-order {
+    background: #ecedee;
+    border-radius: 20px;
+}
+
+.fit-detail-image {
+    width: 300px;
+    aspect-ratio: 16/9;
+    object-fit: contain;
+}
+
+/* account */
+.account {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.account-form {
+    width: 40%;
+    padding: 20px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.row-border-bottom {
+    border-bottom: 3px solid #000000;
+}
+
+.row-border-top {
+    border-top: 3px solid #000000;
+}
+
+.button-buy {
+    width: 100%;
+    background-color: var(--orange) !important;
+}
+
+.button-buy:hover {
+    background-color: #dd6e13 !important;
+}
+
+footer {
+    margin-top: 200px;
+    background-color: var(--biru-dongker-tua)
+}
+
+@media(max-width: 768px) {
+    .login-card {
+        width: 90%;
+        margin-top: -110px;
+    }
+
+    .account-form {
+        width: 90%;
+    }
+}
+
+/* animation */
+@keyframes move {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
