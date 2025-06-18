@@ -26,6 +26,7 @@ class Product extends CI_Controller {
 	{
 		$this->load->model("Mproduct");
 		$data['detail_produk'] = $this->Mproduct->detail_produk($id_produk);
+        $data['rekomendasi'] = $this->Mproduct->produk_serupa($id_produk);
 
 		$this->load->view('header');
 		$this->load->view('product_detail', $data);

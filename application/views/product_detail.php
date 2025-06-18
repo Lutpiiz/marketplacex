@@ -79,6 +79,26 @@
 
       </div>
     </div>
+
+    <hr>
+    <h4 class="mt-5">Rekomendasi Produk Serupa</h4>
+    <div class="row">
+      <?php foreach ($rekomendasi as $p) : ?>
+        <div class="col-md-3 mb-3">
+          <div class="card h-100">
+            <img src="<?php echo base_url('assets/produk/' . $p['foto_produk']) ?>" class="card-img-top" alt="">
+            <div class="card-body">
+              <h5 class="card-title"><?php echo $p['nama_produk']; ?></h5>
+              <p class="card-text">Rp. <?php echo number_format($p['harga'], 0, ',', '.'); ?></p>
+              <p class="text-muted mb-2" style="font-size: 14px;">Similarity: <?php echo number_format($p['similarity'], 4); ?></p>
+              <a href="<?php echo base_url('product/detail/' . $p['id_produk']); ?>" class="btn btn-primary">Lihat</a>
+            </div>
+          </div>
+        </div>
+      <?php endforeach; ?>
+    </div>
+
+
   </div>
 
 
