@@ -17,6 +17,46 @@ function badge($status)
     }
 }
 ?>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    .stars a {
+        display: inline-block;
+        padding-right: 4px;
+        text-decoration: none;
+        margin: 0;
+    }
+
+    .stars a:after {
+        position: relative;
+        font-size: 18px;
+        font-family: 'FontAwesome', serif;
+        display: block;
+        content: "\f005";
+        color: #9e9e9e;
+    }
+
+    span {
+        font-size: 0;
+        /* trick to remove inline-element's margin */
+    }
+
+    .stars a:hover~a:after {
+        color: #9e9e9e !important;
+    }
+
+    span.active a.active~a:after {
+        color: #9e9e9e;
+    }
+
+    span:hover a:after {
+        color: gold !important;
+    }
+
+    span.active a:after,
+    .stars a.active:after {
+        color: gold;
+    }
+</style>
 
 
 <!-- main content -->
@@ -53,64 +93,38 @@ function badge($status)
             </tbody>
         </table>
         <div class="bg-light p-4">
-            <?php if ($transaksi['status_transaksi'] == 'selesai'): ?>
-                <form method="post">
-                    <div class="container">
-                        <h4 class="mb-3">Beri Ulasan</h4>
-                        <?php $belumdiisi = 0; ?>
-                        <?php foreach ($transaksi_detail as $k => $v): ?>
-                            <?php if (empty($v['jumlah_rating'])): ?>
-                                <?php $belumdiisi++; ?>
-                                <div class="mb-2">
-                                    <h6><?php echo $v['nama_beli'] ?></h6>
-                                    <p class="stars" k="<?php echo $k ?>">
-                                        <span k="<?php echo $k ?>">
-                                            <a k="<?php echo $k ?>" class="star-1" href="#">1</a>
-                                            <a k="<?php echo $k ?>" class="star-2" href="#">2</a>
-                                            <a k="<?php echo $k ?>" class="star-3" href="#">3</a>
-                                            <a k="<?php echo $k ?>" class="star-4" href="#">4</a>
-                                            <a k="<?php echo $k ?>" class="star-5" href="#">5</a>
-                                        </span>
-                                    </p>
-                                    <input type="hidden" name="id_transaksi_detail[]" value="<?php echo $v['id_transaksi_detail'] ?>">
-                                    <input type="hidden" class="jrt" name="jumlah_rating[]" k="<?php echo $k ?>">
-                                    <textarea class="form-control" name="ulasan_rating[]"></textarea>
-                                </div>
-                                <hr>
-                            <?php endif ?>
-
-                            <?php if (!empty($v['jumlah_rating'])): ?>
-                                <h6><?php echo $v['nama_beli'] ?></h6>
-                                <?php foreach (range(1, $v['jumlah_rating']) as $kuy => $jum): ?>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                <?php endforeach ?>
-                                <div class="bg-light small text-muted">
-                                    <?php echo $v['ulasan_rating']; ?>
-                                </div>
-                            <?php endif ?>
-                        <?php endforeach ?>
-
-                        <?php if ($belumdiisi > 0): ?>
-                            <button class="btn btn-primary">Kirim</button>
-                        <?php endif ?>
-
-                    </div>
-                </form>
-            <?php endif ?>
-
+            <form action="" method="post">
+                <h3>Beri Ulasan</h3>
+                <p class="stars">
+                    <span>
+                        <a class="star-1" href="#">1</a>
+                        <a class="star-2" href="#">2</a>
+                        <a class="star-3" href="#">3</a>
+                        <a class="star-4" href="#">4</a>
+                        <a class="star-5" href="#">5</a>
+                    </span>
+                </p>
+                <input type="hidden" class="nilai_rating" name="nilai_rating">
+                <input type="hidden" name="id_produk" value="<?php echo $transaksi['id_produk'] ?>">
+                <input type="hidden" name="id_transaksi" value="<?php echo $transaksi['id_transaksi'] ?>">
+                <textarea name="isi_rating" class="form-control"></textarea>
+                <button class="btn orange mt-3 text-white">Kirim Ulasan</button>
+            </form>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
             <script>
                 $('.stars a').on('click', function(e) {
                     e.preventDefault();
-                    k = $(this).attr('k');
-                    $('.stars span[k="' + k + '"], .stars a[k="' + k + '"]').removeClass('active');
+                    $('.stars span, .stars a').removeClass('active');
 
                     $(this).addClass('active');
-                    $('.stars span[k="' + k + '"]').addClass('active');
-                    $('.jrt[k="' + k + '"]').val($(this).text());
-
+                    $('.stars span').addClass('active');
+                    // alert($(this).text());
+                    $('.nilai_rating').val($(this).text());
                 });
             </script>
         </div>
+
+
 
 
 
@@ -147,11 +161,11 @@ function badge($status)
                     </tbody>
                 </table>
             </div>
-        <?php endif ?>
+        <?php endif ?> -->
     </div>
 </div>
 
-<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-aY7QR4HTaPMu9-CR"></script>
+<!-- <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-aY7QR4HTaPMu9-CR"></script>
 <?php if (!empty($snapToken)) :  ?>
     <script type="text/javascript">
         document.getElementById('pay-button').onclick = function() {

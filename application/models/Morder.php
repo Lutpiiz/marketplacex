@@ -1,5 +1,6 @@
 <?php
 class Morder extends CI_Model {
+
     function tampil() {
     $this->db->select('transaksi.*, produk.nama_produk');
     $this->db->from('transaksi');
@@ -27,5 +28,9 @@ class Morder extends CI_Model {
         $this->db->where('id_transaksi', $id_transaksi);
 		$this->db->set('status_transaksi', 'dibayar');
 		$this->db->update('transaksi');
+    }
+
+    function kirim_rating() {
+        
     }
 }
