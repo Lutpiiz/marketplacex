@@ -40,7 +40,7 @@ class Product extends CI_Controller {
         $id_produk = $this->input->post('id_produk');
         $produk = $this->Mproduct->detail_produk($id_produk);
         $total_transaksi = $produk['harga'];
-        $kode_transaksi = 'TRX' . date('YmdHis') . rand(100, 999);
+        $kode_transaksi = date('YmdHis') . rand(100, 999);
     
         $data = [
             'kode_transaksi' => $kode_transaksi,
