@@ -1,6 +1,6 @@
 <!-- main content -->
 <div class="container" data-aos="fade-up">
-  <h1 class="text-center">Product List</h1>
+  <h1 class="text-center">Daftar Produk</h1>
 
   <div class="row align-items-stretch">
     <?php foreach ($produk as $key => $value) :  ?>
@@ -10,13 +10,11 @@
 
             <img src="<?php echo base_url('assets/produk/' . $value['foto_produk']) ?>" class="card-img-top fit-image pt-1" alt="...">
             <div class="card-body d-flex flex-column justify-content-between">
-              <div>
-                <span class="text-center d-block"><?php echo $value['nama_produk'] ?> <?php echo $value['ram'] ?>/<?php echo $value['storage'] ?></span>
-                <span class="text-center d-block"><i class="fa-solid fa-star " style="color: orange;"></i>4.5</span>
-              </div>
+              <span class="d-block"><?php echo $value['nama_produk'] ?> <?php echo $value['ram'] ?>/<?php echo $value['storage'] ?></span>
               <div class="mt-auto">
-                <hr>
-                <span class="text-center d-block">Rp. <?php echo number_format($value['harga'], 0, ',', '.') ?></span>
+                <span class="d-block mt-2"><i class="fa-solid fa-star" style="color: gold;"></i><?php echo isset($value['rata_rating']) ? number_format($value['rata_rating'], 1) : '0.0' ?> | <?php echo $value['jumlah_jual'] ?> Terjual</span>
+                <hr class="mt-1">
+                <span class="d-block">Rp. <?php echo number_format($value['harga'], 0, ',', '.') ?></span>
               </div>
             </div>
 

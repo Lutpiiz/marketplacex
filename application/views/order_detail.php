@@ -135,9 +135,9 @@ function badge($status)
                     $nilai = (int) $transaksi['nilai_rating'];
                     for ($i = 1; $i <= 5; $i++) {
                         if ($i <= $nilai) {
-                            echo '<i class="fa fa-star"></i> ';
+                            echo '<i class="fa-solid fa-star"></i>';
                         } else {
-                            echo '<i class="fa fa-star-o"></i> ';
+                            echo '<i class="fa-regular fa-star"></i>';
                         }
                     }
                     ?>

@@ -1,11 +1,21 @@
 <?php
 class Mproduct extends CI_Model
 {
-    // Fungsi tampil() dan detail_produk() tetap sama
     function tampil()
     {
-        $q = $this->db->get("produk");
-        return $q->result_array();
+        $this->db->select('
+            produk.*,
+            AVG(rating.nilai_rating) AS rata_rating,
+            COUNT(DISTINCT transaksi.id_transaksi) AS jumlah_jual
+        ');
+
+        $this->db->from('produk');
+        $this->db->join('rating', 'rating.id_produk = produk.id_produk', 'left');
+        $this->db->join('transaksi', 'transaksi.id_produk = produk.id_produk AND transaksi.status_transaksi = "selesai"', 'left');
+        $this->db->group_by('produk.id_produk');
+        $query = $this->db->get();
+
+        return $query->result_array();
     }
 
     public function detail_produk($id_produk)

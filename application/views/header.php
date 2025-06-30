@@ -11,6 +11,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
     <link rel="icon" type="image/png" sizes="32x32" href="<?php echo base_url('assets/image/—Pngtree—glitch distorted letter x broken_6007985.png') ?>">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -30,13 +31,13 @@
 
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo base_url('home') ?>">Home</a>
+                            <a class="nav-link" href="<?php echo base_url('home') ?>">Beranda</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo base_url('product') ?>">Product</a>
+                            <a class="nav-link" href="<?php echo base_url('product') ?>">Produk</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo base_url('order') ?>">My Order</a>
+                            <a class="nav-link" href="<?php echo base_url('order') ?>">Pesanan</a>
                         </li>
                     </ul>
 

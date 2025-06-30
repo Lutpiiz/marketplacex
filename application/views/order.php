@@ -20,7 +20,7 @@ function badge($status)
 
 <!-- Main Content -->
 <div class="container" data-aos="fade-up">
-  <h1 class="text-center">My Order</h1>
+  <h1 class="text-center">Riwayat Pesanan</h1>
   <div>
     <table class="w-100 table table-borderless table-striped table-light text-center" id="tabelku">
       <thead>
