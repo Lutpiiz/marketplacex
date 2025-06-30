@@ -13,24 +13,33 @@ class Morder extends CI_Model {
     }
 
 
-    function detail($id_transaksi) {
-        $this->db->where('id_transaksi', $id_transaksi);
+    public function detail($id_transaksi) {
+        $this->db->select('
+            transaksi.id_transaksi AS id_transaksi,
+            transaksi.kode_transaksi,
+            transaksi.id_customer AS id_customer,
+            transaksi.id_produk AS id_produk,
+            transaksi.tanggal_pesan,
+            transaksi.status_transaksi,
+            transaksi.total_transaksi,
+            produk.nama_produk,
+            produk.foto_produk,
+            rating.nilai_rating,
+            rating.isi_rating
+        ');
+        $this->db->from('transaksi');
         $this->db->join('produk', 'transaksi.id_produk = produk.id_produk', 'left');
-        $this->db->group_by('produk.id_produk');
+        $this->db->join('rating', 'transaksi.id_transaksi = rating.id_transaksi', 'left');
+        $this->db->where('transaksi.id_transaksi', $id_transaksi);
 
-        $q = $this->db->get("transaksi");
-        $d = $q->row_array();
-
-        return $d;
+        $q = $this->db->get();
+        return $q->row_array();
     }
 
-    function set_lunas($id_transaksi) {
-        $this->db->where('id_transaksi', $id_transaksi);
-		$this->db->set('status_transaksi', 'dibayar');
-		$this->db->update('transaksi');
-    }
-
-    function kirim_rating() {
+    function kirim_rating($input) {
+        $input['id_customer'] = $this->session->userdata('id_customer');
+        $input['waktu_rating'] = date("Y-m-d H:i:s");
         
+        $this->db->insert('rating', $input);
     }
 }

@@ -29,89 +29,11 @@ class Order extends CI_Controller
 		$this->load->model('Morder');
 		$data['transaksi'] = $this->Morder->detail($id_transaksi);
 
-		// midtrans
-		// $snapToken = '';
-		// $data['cekmidtrans'] = array();
-		// if ($data['transaksi']['status_transaksi'] == 'dipesan') {
-
-
-		// 	include 'midtrans-php/Midtrans.php';
-		// 	\Midtrans\Config::$serverKey = 'SB-Mid-server-szYx-X30eu6EtT0ASz2EfiwF';
-		// 	\Midtrans\Config::$isProduction = false;
-		// 	\Midtrans\Config::$isSanitized = true;
-		// 	\Midtrans\Config::$is3ds = true;
-
-		// 	$params['transaction_details']['order_id'] = $data['transaksi']['id_transaksi'];
-		// 	$params['transaction_details']['gross_amount'] = $data['transaksi']['total_transaksi'];
-
-
-		// 	try {
-		// 		$snapToken = \Midtrans\Snap::getSnapToken($params);
-		// 	} catch (Exception $e) {
-		// 	}
-		// 	$data['snapToken'] = $snapToken;
-
-
-		// 	// cek ke midrtrans
-		// 	$curl = curl_init();
-
-		// 	curl_setopt_array($curl, array(
-		// 		CURLOPT_URL => "https://api.sandbox.midtrans.com/v2/" . $data['transaksi']['id_transaksi'] . "/status",
-		// 		CURLOPT_RETURNTRANSFER => true,
-		// 		CURLOPT_ENCODING => "",
-		// 		CURLOPT_MAXREDIRS => 10,
-		// 		CURLOPT_TIMEOUT => 30,
-		// 		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-		// 		CURLOPT_CUSTOMREQUEST => "GET",
-		// 		CURLOPT_HTTPHEADER => array(
-		// 			"accept: application/json",
-		// 			"authorization: Basic U0ItTWlkLXNlcnZlci1zell4LVgzMGV1NkV0VDBBU3oyRWZpd0Y6UmVhbGl0eTE2"
-		// 		),
-		// 	));
-
-		// 	$response = curl_exec($curl);
-		// 	$err = curl_error($curl);
-
-		// 	curl_close($curl);
-
-		// 	if ($err) {
-		// 		echo "cURL Error #:" . $err;
-		// 	} else {
-		// 		// echo $response;
-		// 		$responsi = json_decode($response, TRUE);
-		// 		if (isset($responsi['status_code']) && in_array($responsi['status_code'], [200, 201])) {
-		// 			$data['cekmidtrans'] = $responsi;
-
-		// 			if ($responsi['transaction_status'] == 'settlement') {
-		// 				$this->Morder->set_lunas($id_transaksi);
-		// 				redirect('order/detail/' . $id_transaksi, 'refresh');
-		// 			}
-		// 		}
-		// 	}
-		// }
-
 		if($this->input->post()){
-			$id_customer = $this->session->userdata('id_customer');
-			$id_produk = $this->input->post('id_produk');
-			$id_transaksi = $this->input->post('id_transaksi');
-			$nilai_rating = $this->input->post('nilai_rating');
-			$isi_rating = $this->input->post('isi_rating');
-			$waktu_rating = date('Y-m-d H:i:s');
-
-
-			$rating = [
-				'id_customer' => $id_customer,
-				'id_produk' => $id_produk,
-				'id_transaksi' => $id_transaksi,
-				'nilai_rating' => $nilai_rating,
-				'isi_rating' => $isi_rating,
-				'waktu_rating' => $waktu_rating
-			];
-
-			$this->db->insert('rating', $rating);
+			$this->Morder->kirim_rating($this->input->post());
 			$this->session->set_flashdata('pesan_sukses', 'Ulasan anda telah dikirim!');
 
-			redirect('order/detail/'.$id_produk, 'refresh');
+			redirect('order/detail/'.$id_transaksi, 'refresh');
 		}
 
 		$this->load->view('header');

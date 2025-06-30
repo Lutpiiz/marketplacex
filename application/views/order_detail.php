@@ -1,3 +1,4 @@
+<!-- ganti warna badge status transaksi -->
 <?php
 function badge($status)
 {
@@ -17,7 +18,8 @@ function badge($status)
     }
 }
 ?>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- css buat bintang rating -->
 <style>
     .stars a {
         display: inline-block;
@@ -35,24 +37,23 @@ function badge($status)
         color: #9e9e9e;
     }
 
-    span {
+    .rating {
         font-size: 0;
-        /* trick to remove inline-element's margin */
     }
 
     .stars a:hover~a:after {
         color: #9e9e9e !important;
     }
 
-    span.active a.active~a:after {
+    .rating.active a.active~a:after {
         color: #9e9e9e;
     }
 
-    span:hover a:after {
+    .rating:hover a:after {
         color: gold !important;
     }
 
-    span.active a:after,
+    .rating.active a:after,
     .stars a.active:after {
         color: gold;
     }
@@ -92,94 +93,57 @@ function badge($status)
                 <td>Rp. <?php echo number_format($transaksi['total_transaksi'], 0, ',', '.') ?></td>
             </tbody>
         </table>
-        <div class="bg-light p-4">
-            <form action="" method="post">
-                <h3>Beri Ulasan</h3>
-                <p class="stars">
-                    <span>
-                        <a class="star-1" href="#">1</a>
-                        <a class="star-2" href="#">2</a>
-                        <a class="star-3" href="#">3</a>
-                        <a class="star-4" href="#">4</a>
-                        <a class="star-5" href="#">5</a>
-                    </span>
-                </p>
-                <input type="hidden" class="nilai_rating" name="nilai_rating">
-                <input type="hidden" name="id_produk" value="<?php echo $transaksi['id_produk'] ?>">
-                <input type="hidden" name="id_transaksi" value="<?php echo $transaksi['id_transaksi'] ?>">
-                <textarea name="isi_rating" class="form-control"></textarea>
-                <button class="btn orange mt-3 text-white">Kirim Ulasan</button>
-            </form>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-            <script>
-                $('.stars a').on('click', function(e) {
-                    e.preventDefault();
-                    $('.stars span, .stars a').removeClass('active');
 
-                    $(this).addClass('active');
-                    $('.stars span').addClass('active');
-                    // alert($(this).text());
-                    $('.nilai_rating').val($(this).text());
-                });
-            </script>
-        </div>
+        <?php if ($transaksi['status_transaksi'] == 'selesai' && empty($transaksi['nilai_rating'])) :  ?>
+            <div class="bg-light p-4">
+                <form action="" method="post">
+                    <h3>Beri Ulasan</h3>
+                    <p class="stars">
+                        <span class="rating">
+                            <a class="star-1" href="#">1</a>
+                            <a class="star-2" href="#">2</a>
+                            <a class="star-3" href="#">3</a>
+                            <a class="star-4" href="#">4</a>
+                            <a class="star-5" href="#">5</a>
+                        </span>
+                    </p>
+                    <input type="hidden" class="nilai_rating" name="nilai_rating">
+                    <input type="hidden" name="id_produk" value="<?php echo $transaksi['id_produk'] ?>">
+                    <input type="hidden" name="id_transaksi" value="<?php echo $transaksi['id_transaksi'] ?>">
+                    <textarea name="isi_rating" class="form-control"></textarea>
+                    <button class="btn orange mt-3 text-white">Kirim Ulasan</button>
+                </form>
+                
+                <script>
+                    $('.stars a').on('click', function(e) {
+                        e.preventDefault();
+                        $('.stars .rating, .stars a').removeClass('active');
 
-
-
-
-
-        <!-- <?php if (!empty($snapToken)) :  ?>
-            <div class="d-flex justify-content-end">
-                <button href="" class="btn btn-danger mt-4 d-flex w-25 justify-content-center" id="pay-button">Bayar Sekarang</button>
+                        $(this).addClass('active');
+                        $('.stars .rating').addClass('active');
+                        $('.nilai_rating').val($(this).text());
+                    });
+                </script>
             </div>
         <?php endif ?>
 
-        <?php if (!empty($cekmidtrans)) :  ?>
-            <div class="mt-5">
-                <h3 class="text-center">Detail Pembayaran</h3>
-                <table class="table table-borderless table-striped table-light text-center">
-                    <thead>
-                        <tr>
-                            <th scope="col">Total Tagihan</th>
-                            <th scope="col">Tipe Pembayaran</th>
-                            <th scope="col">Status Pembayaran</th>
-                            <th scope="col">Nomor VA</th>
-                            <th scope="col">Waktu Transaksi</th>
-                            <th scope="col">Batas Akhir Pembayaran</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <td>Rp. <?php echo number_format($cekmidtrans['gross_amount'], 0, ',', '.') ?></td>
-                        <td><?php echo $cekmidtrans['payment_type'] ?></td>
-                        <td><?php echo $cekmidtrans['transaction_status'] ?>
-                            <?php if ($cekmidtrans['transaction_status'] == 'pending'): ?><br>
-                                Segera lakukan pembayaran sebelum waktu habis
-                            <?php endif ?></td>
-                        <td><?php echo $cekmidtrans['va_numbers'][0]['va_number'] ?></td>
-                        <td><?php echo $cekmidtrans['transaction_time'] ?></td>
-                        <td><?php echo $cekmidtrans['expiry_time'] ?></td>
-                    </tbody>
-                </table>
+        <?php if (!empty($transaksi['nilai_rating'])) :  ?>
+            <div class="bg-light p-4">
+                <h3>Ulasan Anda</h3>
+                <p class="stars text-warning">
+                    <?php
+                    $nilai = (int) $transaksi['nilai_rating'];
+                    for ($i = 1; $i <= 5; $i++) {
+                        if ($i <= $nilai) {
+                            echo '<i class="fa fa-star"></i> ';
+                        } else {
+                            echo '<i class="fa fa-star-o"></i> ';
+                        }
+                    }
+                    ?>
+                </p>
+                <p><?php echo $transaksi['isi_rating'] ?></p>
             </div>
-        <?php endif ?> -->
+        <?php endif ?>
     </div>
 </div>
-
-<!-- <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-aY7QR4HTaPMu9-CR"></script>
-<?php if (!empty($snapToken)) :  ?>
-    <script type="text/javascript">
-        document.getElementById('pay-button').onclick = function() {
-            snap.pay('<?php echo $snapToken ?>', {
-                onSuccess: function(result) {
-                    window.location.href = "<?php echo base_url('order/detail/' . $transaksi['id_transaksi']) ?>";
-                },
-                onPending: function(result) {
-                    window.location.href = "<?php echo base_url('order/detail/' . $transaksi['id_transaksi']) ?>";
-                },
-                onError: function(result) {
-                    window.location.href = "<?php echo base_url('order/detail/' . $transaksi['id_transaksi']) ?>";
-                }
-            });
-        };
-    </script>
-<?php endif ?> -->
