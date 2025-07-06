@@ -26,7 +26,7 @@ class Mproduct extends CI_Model
     }
 
 
-    public function produk_serupa($id_produk, $limit = 24)
+    public function produk_serupa($id_produk, $limit = 18)
     {
         // 1. Ambil semua data produk HANYA SEKALI
         $semua_produk = $this->tampil();

@@ -82,25 +82,30 @@
 
     <hr>
     <h4 class="mt-5">Rekomendasi Produk Serupa</h4>
-    <div class="row">
-      <?php foreach ($rekomendasi as $p) : ?>
-        <div class="col-md-3 mb-3">
-          <div class="card h-100">
-            <img src="<?php echo base_url('assets/produk/' . $p['foto_produk']) ?>" class="card-img-top" alt="">
-            <div class="card-body">
-              <h5 class="card-title"><?php echo $p['nama_produk']; ?></h5>
-              <p class="card-text">Rp. <?php echo number_format($p['harga'], 0, ',', '.'); ?></p>
-              <p class="text-muted mb-2" style="font-size: 14px;">Similarity: <?php echo number_format($p['similarity'], 4); ?></p>
-              <a href="<?php echo base_url('product/detail/' . $p['id_produk']); ?>" class="btn btn-primary">Lihat</a>
+    <div class="row align-items-stretch">
+      <?php foreach ($rekomendasi as $key => $value) :  ?>
+        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6 py-3">
+          <a href="<?php echo base_url('product/detail/' . $value['id_produk']) ?>" style="text-decoration: none;">
+            <div class="card h-100 shadow-lg d-flex flex-column">
+
+              <span class="text-center" style="font-size: 14px;">similarity : <?php echo number_format($value['similarity'], 5) ?></span>
+
+              <img src="<?php echo base_url('assets/produk/' . $value['foto_produk']) ?>" class="card-img-top fit-image pt-1" alt="...">
+              <div class="card-body d-flex flex-column justify-content-between">
+                <span class="d-block"><?php echo $value['nama_produk'] ?> <?php echo $value['ram'] ?>/<?php echo $value['storage'] ?></span>
+                <div class="mt-auto">
+                  <span class="d-block mt-2"><i class="fa-solid fa-star" style="color: gold;"></i><?php echo isset($value['rata_rating']) ? number_format($value['rata_rating'], 1) : '0.0' ?> | <?php echo $value['jumlah_jual'] ?> Terjual</span>
+                  <hr class="mt-1">
+                  <span class="d-block">Rp. <?php echo number_format($value['harga'], 0, ',', '.') ?></span>
+                </div>
+              </div>
+
             </div>
-          </div>
+          </a>
         </div>
-      <?php endforeach; ?>
+      <?php endforeach ?>
     </div>
 
-
   </div>
-
-
 
 </div>

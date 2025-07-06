@@ -20,7 +20,6 @@
 
           </div>
         </a>
-
       </div>
     <?php endforeach ?>
   </div>
