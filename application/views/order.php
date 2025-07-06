@@ -35,7 +35,7 @@ function badge($status)
       <tbody>
         <?php foreach ($transaksi as $key => $value) : ?>
           <tr>
-            <td><?php echo date('d F Y H:i', strtotime($value['tanggal_pesan'])); ?></td>
+            <td><?php echo date('d F Y H:i:s', strtotime($value['tanggal_pesan'])); ?></td>
             <td><?php echo $value['nama_produk'] ?></td>
             <td>Rp. <?php echo number_format($value['total_transaksi'], 0, ',', '.'); ?></td>
             <td>

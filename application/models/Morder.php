@@ -2,14 +2,14 @@
 class Morder extends CI_Model {
 
     function tampil() {
-    $this->db->select('transaksi.*, produk.nama_produk');
-    $this->db->from('transaksi');
-    $this->db->join('produk', 'produk.id_produk = transaksi.id_produk', 'left');
-    $this->db->where('transaksi.id_customer', $this->session->userdata('id_customer'));
-    $this->db->order_by('transaksi.tanggal_pesan', 'DESC');
-    $query = $this->db->get();
+        $this->db->select('transaksi.*, produk.nama_produk');
+        $this->db->from('transaksi');
+        $this->db->join('produk', 'produk.id_produk = transaksi.id_produk', 'left');
+        $this->db->where('transaksi.id_customer', $this->session->userdata('id_customer'));
+        $this->db->order_by('transaksi.tanggal_pesan', 'DESC');
+        $query = $this->db->get();
 
-    return $query->result_array();
+        return $query->result_array();
     }
 
 
