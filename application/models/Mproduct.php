@@ -25,8 +25,8 @@ class Mproduct extends CI_Model
         return $query->row_array();
     }
 
-
-    public function produk_serupa($id_produk, $limit = 18)
+    // , $limit = 18 setelah $id_produk
+    public function produk_serupa($id_produk)
     {
         // 1. Ambil semua data produk HANYA SEKALI
         $semua_produk = $this->tampil();
@@ -104,7 +104,8 @@ class Mproduct extends CI_Model
             return $b['similarity'] <=> $a['similarity'];
         });
 
-        return array_slice($kemiripan, 0, $limit);
+        return array_slice($kemiripan, 0);
+        // , $limit setelah 0
     }
 
     /**
@@ -190,5 +191,14 @@ class Mproduct extends CI_Model
         $denominator = sqrt($norm_a) * sqrt($norm_b);
 
         return $denominator > 0 ? $dot_product / $denominator : 0;
+    }
+
+    public function user_transaksi($id_customer)
+    {
+        $this->db->where('id_customer', $id_customer);
+        $this->db->where('status_transaksi', 'selesai');
+        $query = $this->db->get('transaksi');
+        
+        return $query->num_rows() > 0;
     }
 }
